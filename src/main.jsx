@@ -3,12 +3,16 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import './index.css'
 import { RootLayout } from './pages/RootLayout.jsx'
+import { RegisterPage } from './pages/Auth/RegisterPage.jsx'
+import { LoginPage } from './pages/Auth/LoginPage.jsx'
 import { Homepage } from './pages/Home/Homepage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={ <RootLayout /> }>
       <Route path="/" element={ <Homepage /> }/>
+      <Route path="register" element={ <RegisterPage /> }/>
+      <Route path="login" element={ <LoginPage /> }/>
     </Route>
   )
 )
