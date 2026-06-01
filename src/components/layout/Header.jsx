@@ -19,7 +19,7 @@ export function Header() {
     )
     
     return (
-        <header className="py-4 fixed inset-x-0 top-0 z-50">
+        <header className="py-4 fixed inset-x-0 top-0 z-50  bg-header-dark text-primary-dark text-white">
             <div className="w-11/12 mx-auto flex justify-between items-center">
                 <Link to="/">
                     <img className="w-28 hover:cursor-pointer" src={mintonLogo} alt="Minton Logo" />
