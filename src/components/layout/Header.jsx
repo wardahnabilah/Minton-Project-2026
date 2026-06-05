@@ -1,9 +1,13 @@
 import mintonLogo from '../../assets/images/minton-logo.png'
 import { NavItem } from './NavItem'
 import { NavLink, Link } from 'react-router-dom'
-import { ButtonLinkSmall } from '../elements/Buttons'
+import { ButtonLinkSmall, ButtonBtn } from '../elements/Buttons'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
 
 export function Header() {
+    const {loggedInUser, setLoggedInUser, postLogout} = useContext(AuthContext);
+    
     const navList = (
         <ul className="md:flex text-white">
             <NavItem>
@@ -13,7 +17,11 @@ export function Header() {
                 <NavLink to="/booking-schedule" className="block">Booking Schedule</NavLink>
             </NavItem>
             <NavItem>
-                <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall>
+                { !loggedInUser ? <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall> : 
+                    <>
+                        <ButtonBtn onClick={postLogout}>Logout</ButtonBtn>
+                    </>
+                }
             </NavItem>
         </ul>
     )
@@ -24,6 +32,7 @@ export function Header() {
                 <Link to="/">
                     <img className="w-28 hover:cursor-pointer" src={mintonLogo} alt="Minton Logo" />
                 </Link>
+                { loggedInUser && <h3 className='inline-block pl-5'>Hi, {loggedInUser?.name}</h3> }
                 <div className="md:block">
                     {navList}
                 </div>

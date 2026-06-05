@@ -17,7 +17,7 @@ export function AuthProvider({children}) {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/register`, {
+            const response = await fetch(`${BASE_URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export function AuthProvider({children}) {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${BASE_URL}/api/v1/login`, {
+            const response = await fetch(`${BASE_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
@@ -93,11 +93,54 @@ export function AuthProvider({children}) {
         }
     }
 
+    // Logout
+    const postLogout = async function (formData) {  
+        setError('');
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(`${BASE_URL}/logout`, {
+                method: 'POST',
+                headers: {
+                    'Authorization' : `Bearer ${loggedInUser.accessToken}`,
+                    'Content-Type' : 'application/json',
+                    'Accept' : 'application/json',
+                },
+            });
+            const data = await response.json();
+
+            // if error, throw error
+            if(!response.ok) {
+                setIsLoading(false);
+                throw data;
+            }
+
+            // if success, set loggedInUser to null        
+            setLoggedInUser(null);
+            setIsLoading(false);
+            navigateTo('/');
+
+        } catch (e) {
+            let message = e.message;
+            let errors = e.errors;
+            let detailError = [];
+            
+            if(errors) {
+                for(let key in errors) {
+                    detailError.push(...errors[key]);
+                }
+            }
+            
+            setError(detailError.length ? detailError.join(" | ") : message);
+        }
+    }
+
     return (
         <AuthContext.Provider value={{
             loggedInUser, 
             setLoggedInUser,
             postLogin,
+            postLogout,
             postRegister,
             error,
             isLoading,
