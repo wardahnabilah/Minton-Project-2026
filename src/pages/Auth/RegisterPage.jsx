@@ -1,64 +1,24 @@
 import { InputForm } from "../../components/elements/InputForm"
 import { ButtonBtn } from "../../components/elements/Buttons"
 import { ErrorAlert } from "../../components/elements/ErrorAlert"
-import { useEffect, useState } from "react"
+import { AuthContext } from "../../context/AuthContext"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function RegisterPage() {
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [formData, setFormData] = useState({
         name: '', 
         email: '', 
         password: '', 
         password_confirmation: '',
     });
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    const navigateTo = useNavigate();
+    const {postRegister, isLoading, error} = useContext(AuthContext);
 
     function handleSubmit(e) {
         e.preventDefault();
-        setIsLoading(true);
-        setError('');
 
         // send data to the API
-        const postRegister = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}/api/v1/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-                const data = await response.json();
-
-                // if error, throw error
-                if(!response.ok) {
-                    setIsLoading(false);
-                    throw data;
-                }
-                
-                // if success, redirect login page
-                navigateTo('/login');
-                setIsLoading(false);
-            } catch (e) {
-                let message = e.message;
-                let errors = e.errors;
-                let detailErrors = [];
-
-                if(errors) {
-                    for(let key in errors) {
-                        detailErrors.push(...errors[key]);
-                    }
-                }
-
-                setError(detailErrors.length ? detailErrors.join(', ') : message);
-            }
-        }
-
-        postRegister();
+        postRegister(formData);
     }
     
     return (

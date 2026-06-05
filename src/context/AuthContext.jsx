@@ -11,6 +11,47 @@ export function AuthProvider({children}) {
     const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
 
+    // Register
+    const postRegister = async function (formData) {
+        setError('');
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(`${BASE_URL}/api/v1/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+
+            // if error, throw error
+            if(!response.ok) {
+                setIsLoading(false);
+                throw data;
+            }
+            
+            // if success, redirect login page
+            navigateTo('/login');
+            setIsLoading(false);
+        } catch (e) {
+            let message = e.message;
+            let errors = e.errors;
+            let detailErrors = [];
+
+            if(errors) {
+                for(let key in errors) {
+                    detailErrors.push(...errors[key]);
+                }
+            }
+
+            setError(detailErrors.length ? detailErrors.join(', ') : message);
+        }
+    }
+
+    // Login
     const postLogin = async function (formData) {  
         setError('');
         setIsLoading(true);
@@ -50,7 +91,6 @@ export function AuthProvider({children}) {
             
             setError(detailError.length ? detailError.join(" | ") : message);
         }
-
     }
 
     return (
@@ -58,6 +98,7 @@ export function AuthProvider({children}) {
             loggedInUser, 
             setLoggedInUser,
             postLogin,
+            postRegister,
             error,
             isLoading,
         }}>
