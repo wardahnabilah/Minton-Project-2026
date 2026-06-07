@@ -7,6 +7,7 @@ import { RegisterPage } from './pages/Auth/RegisterPage.jsx'
 import { LoginPage } from './pages/Auth/LoginPage.jsx'
 import { Homepage } from './pages/Home/Homepage.jsx'
 import { AdminPage } from './pages/Admin/AdminPage.jsx'
+import { SettingsCourtPage } from './pages/Admin/SettingsCourtPage.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ProtectedRoute } from './components/others/ProtectedRoute.jsx'
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
 
         <Route path="admin" element={<ProtectedRoute />}>
           <Route path="" element={<AdminPage />} />
+          <Route path="courts" element={<SettingsCourtPage />}/>
         </Route>
       </Route>
     </Route>
