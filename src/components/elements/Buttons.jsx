@@ -12,7 +12,7 @@ export function ButtonLink({pathName, children: label}) {
     )
 }
 
-export function ButtonBtn({onClick, className: addedClass,children: label, disabled}) {
+export function ButtonPrimary({onClick, className: addedClass,children: label, disabled}) {
     return (
         <button 
             className={`

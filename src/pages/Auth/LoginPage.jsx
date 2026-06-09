@@ -1,5 +1,5 @@
 import { InputForm } from "../../components/elements/InputForm";
-import { ButtonBtn } from "../../components/elements/Buttons";
+import { ButtonPrimary } from "../../components/elements/Buttons";
 import { ErrorAlert } from "../../components/elements/ErrorAlert";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState } from "react";
@@ -33,7 +33,7 @@ export function LoginPage() {
                     onChange={e => setFormData((prev) => ({...prev, password: e.target.value}))}
                 />
 
-                <ButtonBtn className="mt-8" disabled={isLoading}>{!isLoading ? 'Login' : 'Loading...' }</ButtonBtn>
+                <ButtonPrimary className="mt-8" disabled={isLoading}>{!isLoading ? 'Login' : 'Loading...' }</ButtonPrimary>
             </form>
 
             <div className="text-center mt-10">
