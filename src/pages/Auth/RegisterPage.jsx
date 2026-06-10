@@ -54,7 +54,7 @@ export function RegisterPage() {
                     onChange={e => setFormData((prev) => ({...prev, password_confirmation: e.target.value}))}
                 />
 
-                <ButtonFilled variant="primary" size="md" className="mt-8" disabled={isLoading}>{!isLoading ? 'Sign Up' : 'Loading...'}</ButtonFilled>
+                <ButtonFilled variant="primary" size="md" className="mt-8" isLoading={isLoading}>Sign Up</ButtonFilled>
             </form>
         </section>
     )

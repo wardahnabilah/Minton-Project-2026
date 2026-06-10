@@ -12,7 +12,7 @@ export function ButtonLink({pathName, children: label}) {
     )
 }
 
-export function ButtonFilled({onClick, size, variant, loading, disabled, className: addedClass, children: label}) {
+export function ButtonFilled({onClick, size, variant, isLoading, className: addedClass, children: label}) {
     const variants = {
         primary: 'bg-primary-red hover:bg-primary-red-dark shadow-primary-red/40',
         secondary: 'bg-accent-grey hover:bg-accent-lightgrey shadow-accent-darkgrey/40'
@@ -39,10 +39,10 @@ export function ButtonFilled({onClick, size, variant, loading, disabled, classNa
                 disabled:text-white/40
                 disabled:bg-accent-darkgrey/70
             `}
-            disabled={disabled}
+            disabled={isLoading}
             onClick={onClick}
         >
-            {label}
+            { !isLoading ? label : 'Loading...'}
         </button>
     )
 }

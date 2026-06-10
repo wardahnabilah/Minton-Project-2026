@@ -33,7 +33,7 @@ export function LoginPage() {
                     onChange={e => setFormData((prev) => ({...prev, password: e.target.value}))}
                 />
 
-                <ButtonFilled variant="primary" size="md" className="mt-8" disabled={isLoading}>{!isLoading ? 'Login' : 'Loading...' }</ButtonFilled>
+                <ButtonFilled variant="primary" size="md" className="mt-8" isLoading={isLoading}>Login</ButtonFilled>
             </form>
 
             <div className="text-center mt-10">
