@@ -12,25 +12,32 @@ export function ButtonLink({pathName, children: label}) {
     )
 }
 
-export function ButtonPrimary({onClick, className: addedClass,children: label, disabled}) {
+export function ButtonFilled({onClick, size, variant, loading, disabled, className: addedClass, children: label}) {
+    const variants = {
+        primary: 'bg-primary-red hover:bg-primary-red-dark shadow-primary-red/40',
+        secondary: 'bg-accent-grey hover:bg-accent-lightgrey shadow-accent-darkgrey/40'
+    }
+    
+    const sizes = {
+        sm: 'px-4 py-2 text-sm',
+        md: 'px-5 py-1 text-md',
+        lg: 'px-8 py-2 text-lg',
+    }
+    
     return (
         <button 
             className={`
+                ${variants[variant]}
+                ${sizes[size]}
                 ${addedClass} 
                 inline-block 
-                px-8 py-2 
-                text-lg 
                 text-center
                 text-white 
                 rounded-full 
-                bg-primary-red  
-                hover:bg-primary-red-dark
                 shadow-lg 
-                shadow-primary-red/40
                 disabled:shadow-none
                 disabled:text-white/40
                 disabled:bg-accent-darkgrey/70
-                dark:disabled:bg-accent-lightgrey/40
             `}
             disabled={disabled}
             onClick={onClick}

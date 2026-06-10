@@ -1,7 +1,7 @@
 import mintonLogo from '../../assets/images/minton-logo.png'
 import { NavItem } from './NavItem'
 import { NavLink, Link } from 'react-router-dom'
-import { ButtonLinkSmall, ButtonPrimary } from '../elements/Buttons'
+import { ButtonLinkSmall, ButtonFilled } from '../elements/Buttons'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -19,7 +19,7 @@ export function Header() {
             <NavItem>
                 { !loggedInUser ? <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall> : 
                     <>
-                        <ButtonPrimary onClick={postLogout}>Logout</ButtonPrimary>
+                        <ButtonFilled variant="primary" size="md" onClick={postLogout}>Logout</ButtonFilled>
                     </>
                 }
             </NavItem>

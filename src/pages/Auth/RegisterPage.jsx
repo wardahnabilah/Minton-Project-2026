@@ -1,5 +1,5 @@
 import { InputForm } from "../../components/elements/InputForm"
-import { ButtonPrimary } from "../../components/elements/Buttons"
+import { ButtonFilled } from "../../components/elements/Buttons"
 import { ErrorAlert } from "../../components/elements/ErrorAlert"
 import { AuthContext } from "../../context/AuthContext"
 import { useContext, useEffect, useState } from "react"
@@ -54,7 +54,7 @@ export function RegisterPage() {
                     onChange={e => setFormData((prev) => ({...prev, password_confirmation: e.target.value}))}
                 />
 
-                <ButtonPrimary className="mt-8" disabled={isLoading}>{!isLoading ? 'Sign Up' : 'Loading...'}</ButtonPrimary>
+                <ButtonFilled variant="primary" size="md" className="mt-8" disabled={isLoading}>{!isLoading ? 'Sign Up' : 'Loading...'}</ButtonFilled>
             </form>
         </section>
     )
