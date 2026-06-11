@@ -12,7 +12,7 @@ export function SettingsCourtPage() {
                                     createEditModal: false,
                                     deleteModal: false,
                                 });
-    const [selectedCourtId, setSelectedCourtId] = useState();
+    const [selectedCourt, setSelectedCourt] = useState();
     const {loggedInUser, setLoggedInUser} = useContext(AuthContext);
 
     const getCourtSchedules = async () => {
@@ -32,8 +32,8 @@ export function SettingsCourtPage() {
         getCourtSchedules();
     }, []);
 
-    function toggleModal(type, id = null) {
-        setSelectedCourtId(id);
+    function toggleModal(type, court) {
+        setSelectedCourt(court);
         setIsOpen((prev) => {
             return {
                 ...prev,
@@ -59,16 +59,14 @@ export function SettingsCourtPage() {
                     {
                         courtSchedules?.length ? 
                         courtSchedules.map((item, i) => {
-                            let courtId = item.id;
-
                             return (
                                 <tr key={item.id}>
                                     <td className="border border-gray-400 text-center">{i+1}</td>
                                     <td className="pl-5 py-3 border border-gray-400">{item?.name}</td>
                                     <td className="pl-5 py-3 border border-gray-400">
                                         <ButtonOutline color="primary-light">Set Schedules</ButtonOutline>
-                                        <ButtonOutline color="accent-yellow" onClick={() => toggleModal('createEditModal', courtId)}>Edit</ButtonOutline>
-                                        <ButtonOutline color="primary-red" onClick={() => toggleModal('deleteModal', courtId)}>Delete</ButtonOutline>
+                                        <ButtonOutline color="accent-yellow" onClick={() => toggleModal('createEditModal', item)}>Edit</ButtonOutline>
+                                        <ButtonOutline color="primary-red" onClick={() => toggleModal('deleteModal', item.id)}>Delete</ButtonOutline>
                                     </td>
                                 </tr>
                             );
@@ -78,8 +76,8 @@ export function SettingsCourtPage() {
                 </tbody>
             </table>
         </section>
-        { isOpen.createEditModal && <CreateEditModal courtId={selectedCourtId} closeModal={() => toggleModal('createEditModal')} getCourtSchedules={getCourtSchedules} /> }
-        { isOpen.deleteModal && <DeleteModal courtId={selectedCourtId} closeModal={() => toggleModal('deleteModal')} getCourtSchedules={getCourtSchedules} /> }
+        { isOpen.createEditModal && <CreateEditModal courtId={selectedCourt?.id} courtName={selectedCourt?.name} closeModal={() => toggleModal('createEditModal')} getCourtSchedules={getCourtSchedules} /> }
+        { isOpen.deleteModal && <DeleteModal courtId={selectedCourt?.id} closeModal={() => toggleModal('deleteModal')} getCourtSchedules={getCourtSchedules} /> }
       </>
     );
 }
