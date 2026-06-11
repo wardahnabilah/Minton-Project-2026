@@ -15,7 +15,8 @@ export function ButtonLink({pathName, children: label}) {
 export function ButtonFilled({onClick, size, variant, isLoading, className: addedClass, children: label}) {
     const variants = {
         primary: 'bg-primary-red hover:bg-primary-red-dark shadow-primary-red/40',
-        secondary: 'bg-accent-grey hover:bg-accent-lightgrey shadow-accent-darkgrey/40'
+        secondary: 'bg-accent-lightgrey hover:bg-accent-darkgrey/60 shadow-accent-darkgrey/40',
+        info: 'bg-primary-light/70 hover:bg-primary-light/40 shadow-accent-darkgrey/40',
     }
     
     const sizes = {
@@ -45,4 +46,28 @@ export function ButtonFilled({onClick, size, variant, isLoading, className: adde
             { !isLoading ? label : 'Loading...'}
         </button>
     )
+}
+
+export function ButtonOutline({onClick, className: addedClass, loading, color, children: label}) {
+    const lightColors = ['accent-yellow'];
+
+    return (
+        <button 
+            className={`
+                mr-2
+                px-3 
+                py-1 
+                border-2
+                border-${color}
+                hover:bg-${color}
+                text-white
+                ${lightColors.includes(color) && 'hover:text-primary-dark'}
+                rounded-xl
+                ${addedClass}
+            `}
+            onClick={onClick}
+        >
+            { label }
+        </button>
+    );
 }
