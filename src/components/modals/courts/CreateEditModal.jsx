@@ -5,7 +5,7 @@ import { CourtForm } from "../../forms/CourtForm";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export function CreateEditModal({ courtId, courtName = null, isOpen, closeModal, getCourtSchedules, children }) {
+export function CreateEditModal({ courtId, courtName = null, isOpen, closeModal, getCourts, children }) {
     const {loggedInUser} = useContext(AuthContext);
     const [court, setCourt] = useState();
 
@@ -20,7 +20,7 @@ export function CreateEditModal({ courtId, courtName = null, isOpen, closeModal,
                                 courtId={courtId} 
                                 courtNameVal={courtName} 
                                 closeModal={closeModal}
-                                getCourtSchedules={getCourtSchedules} />
+                                getCourts={getCourts} />
                     }
                 </div>
             </div>

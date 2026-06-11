@@ -4,10 +4,9 @@ import { AuthContext } from "../../../context/AuthContext";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export function DeleteModal({ courtId, closeModal, getCourtSchedules,children }) {
+export function DeleteModal({ courtId, closeModal, getCourts,children }) {
     const {loggedInUser} = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
-
 
     const deleteCourt = async () => {
         setIsLoading(true);
@@ -29,7 +28,7 @@ export function DeleteModal({ courtId, closeModal, getCourtSchedules,children })
         }
 
         closeModal();
-        getCourtSchedules();
+        getCourts();
     }
 
     return (

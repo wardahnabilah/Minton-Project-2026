@@ -7,7 +7,7 @@ import { ButtonFilled, ButtonOutline } from "../../components/elements/Buttons";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function SettingsCourtPage() {
-    const [courtSchedules, setCourtSchedules] = useState([]);
+    const [courts, setCourts] = useState([]);
     const [isOpen, setIsOpen] = useState({
                                     createEditModal: false,
                                     deleteModal: false,
@@ -15,7 +15,7 @@ export function SettingsCourtPage() {
     const [selectedCourt, setSelectedCourt] = useState();
     const {loggedInUser, setLoggedInUser} = useContext(AuthContext);
 
-    const getCourtSchedules = async () => {
+    const getCourts = async () => {
             const response = await fetch(`${BASE_URL}/courts`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,11 +25,11 @@ export function SettingsCourtPage() {
             });
             const data = await response.json();
 
-            setCourtSchedules(data.data);
+            setCourts(data.data);
         }
 
     useEffect(() => {
-        getCourtSchedules();
+        getCourts();
     }, []);
 
     function toggleModal(type, court) {
@@ -57,8 +57,8 @@ export function SettingsCourtPage() {
                 </thead>
                 <tbody>
                     {
-                        courtSchedules?.length ? 
-                        courtSchedules.map((item, i) => {
+                        courts?.length ? 
+                        courts.map((item, i) => {
                             return (
                                 <tr key={item.id}>
                                     <td className="border border-gray-400 text-center">{i+1}</td>
@@ -66,7 +66,7 @@ export function SettingsCourtPage() {
                                     <td className="pl-5 py-3 border border-gray-400">
                                         <ButtonOutline color="primary-light">Set Schedules</ButtonOutline>
                                         <ButtonOutline color="accent-yellow" onClick={() => toggleModal('createEditModal', item)}>Edit</ButtonOutline>
-                                        <ButtonOutline color="primary-red" onClick={() => toggleModal('deleteModal', item.id)}>Delete</ButtonOutline>
+                                        <ButtonOutline color="primary-red" onClick={() => toggleModal('deleteModal', item)}>Delete</ButtonOutline>
                                     </td>
                                 </tr>
                             );
@@ -76,8 +76,8 @@ export function SettingsCourtPage() {
                 </tbody>
             </table>
         </section>
-        { isOpen.createEditModal && <CreateEditModal courtId={selectedCourt?.id} courtName={selectedCourt?.name} closeModal={() => toggleModal('createEditModal')} getCourtSchedules={getCourtSchedules} /> }
-        { isOpen.deleteModal && <DeleteModal courtId={selectedCourt?.id} closeModal={() => toggleModal('deleteModal')} getCourtSchedules={getCourtSchedules} /> }
+        { isOpen.createEditModal && <CreateEditModal courtId={selectedCourt?.id} courtName={selectedCourt?.name} closeModal={() => toggleModal('createEditModal')} getCourts={getCourts} /> }
+        { isOpen.deleteModal && <DeleteModal courtId={selectedCourt?.id} closeModal={() => toggleModal('deleteModal')} getCourts={getCourts} /> }
       </>
     );
 }

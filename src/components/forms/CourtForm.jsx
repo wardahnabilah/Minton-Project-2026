@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export function CourtForm({ courtId = null, courtNameVal = null, isEdit = null, closeModal, getCourtSchedules }) {
+export function CourtForm({ courtId = null, courtNameVal = null, isEdit = null, closeModal, getCourts }) {
     const {loggedInUser} = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({name: courtNameVal});
@@ -38,7 +38,7 @@ export function CourtForm({ courtId = null, courtNameVal = null, isEdit = null, 
 
         setIsLoading(false);
         closeModal();
-        getCourtSchedules();
+        getCourts();
     }
 
     function handleSubmit(e) {
