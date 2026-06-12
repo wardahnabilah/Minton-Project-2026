@@ -1,7 +1,7 @@
 import mintonLogo from '../../assets/images/minton-logo.png'
 import { NavItem } from './NavItem'
 import { NavLink, Link } from 'react-router-dom'
-import { ButtonLinkSmall, ButtonFilled } from '../elements/Buttons'
+import { ButtonLinkSmall, ButtonOutline } from '../elements/Buttons'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -9,17 +9,23 @@ export function Header() {
     const {loggedInUser, setLoggedInUser, postLogout} = useContext(AuthContext);
     
     const navList = (
-        <ul className="md:flex text-white">
+        <ul className="md:flex md:items-center text-white">
             <NavItem>
                 <NavLink to="/" className="block">Home</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink to="/booking-schedule" className="block">Booking Schedule</NavLink>
             </NavItem>
+            {
+                (loggedInUser?.role === 'admin') &&
+                    <NavItem>
+                        <NavLink to="/admin" className="block">Admin</NavLink>
+                    </NavItem>
+            }
             <NavItem>
                 { !loggedInUser ? <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall> : 
                     <>
-                        <ButtonFilled variant="primary" size="md" onClick={postLogout}>Logout</ButtonFilled>
+                        <ButtonOutline color="primary-red" size="md" onClick={postLogout}>Logout</ButtonOutline>
                     </>
                 }
             </NavItem>
