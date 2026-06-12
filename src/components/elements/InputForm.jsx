@@ -1,4 +1,4 @@
-export function InputForm({placeholder, name, label, type, defaultValue, onChange, validationError}) {
+export function InputForm({placeholder, name, label, type, defaultValue, min, max, step, onChange, validationError}) {
     return (
         <div>
             <label className="block mb-2 text-base" htmlFor={name}>{label}</label>
@@ -10,6 +10,9 @@ export function InputForm({placeholder, name, label, type, defaultValue, onChang
                 type={type}
                 placeholder={placeholder} 
                 defaultValue={defaultValue}
+                min={min}
+                max={max}
+                step={step}
             />
             <small className="block pt-2 pl-4 text-lg text-accent-red-danger">{validationError}</small>
         </div>

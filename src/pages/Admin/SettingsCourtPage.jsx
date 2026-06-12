@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { DeleteModal } from "../../components/modals/courts/DeleteModal";
 import { CreateEditModal } from "../../components/modals/courts/CreateEditModal";
 import { ButtonFilled, ButtonOutline } from "../../components/elements/Buttons";
+import { SetSchedulesModal } from "../../components/modals/courts/SetSchedulesModal";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -11,6 +12,7 @@ export function SettingsCourtPage() {
     const [isOpen, setIsOpen] = useState({
                                     createEditModal: false,
                                     deleteModal: false,
+                                    setSchedulesModal: false,
                                 });
     const [selectedCourt, setSelectedCourt] = useState();
     const {loggedInUser, setLoggedInUser} = useContext(AuthContext);
@@ -64,7 +66,7 @@ export function SettingsCourtPage() {
                                     <td className="border border-gray-400 text-center">{i+1}</td>
                                     <td className="pl-5 py-3 border border-gray-400">{item?.name}</td>
                                     <td className="pl-5 py-3 border border-gray-400">
-                                        <ButtonOutline color="primary-light">Set Schedules</ButtonOutline>
+                                        <ButtonOutline color="primary-light" onClick={() => toggleModal('setSchedulesModal', item) }>Set Schedules</ButtonOutline>
                                         <ButtonOutline color="accent-yellow" onClick={() => toggleModal('createEditModal', item)}>Edit</ButtonOutline>
                                         <ButtonOutline color="primary-red" onClick={() => toggleModal('deleteModal', item)}>Delete</ButtonOutline>
                                     </td>
@@ -78,6 +80,7 @@ export function SettingsCourtPage() {
         </section>
         { isOpen.createEditModal && <CreateEditModal courtId={selectedCourt?.id} courtName={selectedCourt?.name} closeModal={() => toggleModal('createEditModal')} getCourts={getCourts} /> }
         { isOpen.deleteModal && <DeleteModal courtId={selectedCourt?.id} closeModal={() => toggleModal('deleteModal')} getCourts={getCourts} /> }
+        { isOpen.setSchedulesModal && <SetSchedulesModal court={selectedCourt} closeModal={() => toggleModal('setSchedulesModal')} getCourts={getCourts} /> }
       </>
     );
 }
