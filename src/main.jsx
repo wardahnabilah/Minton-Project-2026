@@ -10,6 +10,8 @@ import { AdminPage } from './pages/Admin/AdminPage.jsx'
 import { SettingsCourtPage } from './pages/Admin/SettingsCourtPage.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ProtectedRoute } from './components/others/ProtectedRoute.jsx'
+import { CourtSchedulesPage } from './pages/CourtSchedulesPage.jsx'
+import { CreateBookingPage } from './pages/Booking/CreateBookingPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,8 @@ const router = createBrowserRouter(
         <Route path="/" element={ <Homepage /> }/>
         <Route path="register" element={ <RegisterPage /> }/>
         <Route path="login" element={ <LoginPage /> }/>
+        <Route path="court-schedules" element={ <CourtSchedulesPage /> }/>
+        <Route path="create-booking" element={ <CreateBookingPage /> }/>
 
         <Route path="admin" element={<ProtectedRoute />}>
           <Route path="" element={<AdminPage />} />
