@@ -14,7 +14,7 @@ export function Header() {
                 <NavLink to="/" className="block">Home</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink to="/booking-schedule" className="block">Booking Schedule</NavLink>
+                <NavLink to="/booking-history" className="block">Booking History</NavLink>
             </NavItem>
             {
                 (loggedInUser?.role === 'admin') &&

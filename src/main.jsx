@@ -12,6 +12,7 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import { ProtectedRoute } from './components/others/ProtectedRoute.jsx'
 import { CourtSchedulesPage } from './pages/CourtSchedulesPage.jsx'
 import { CreateBookingPage } from './pages/Booking/CreateBookingPage.jsx'
+import { HistoryBookingPage } from './pages/Booking/HistoryBookingPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
         <Route path="login" element={ <LoginPage /> }/>
         <Route path="court-schedules" element={ <CourtSchedulesPage /> }/>
         <Route path="create-booking" element={ <CreateBookingPage /> }/>
+        <Route path="booking-history" element={ <HistoryBookingPage /> }/>
 
         <Route path="admin" element={<ProtectedRoute />}>
           <Route path="" element={<AdminPage />} />
