@@ -76,7 +76,7 @@ export function AuthProvider({children}) {
             // if success, set loggedInUser and redirect to schedules page              
             setIsLoading(false);
             setLoggedInUser(data.data);
-            navigateTo('/booking-schedules');
+            navigateTo('/court-schedules');
 
         } catch (e) {
             let message = e.message;
