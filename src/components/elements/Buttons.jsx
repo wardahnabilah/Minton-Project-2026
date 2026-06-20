@@ -50,6 +50,11 @@ export function ButtonFilled({onClick, size, variant, isLoading, className: adde
 
 export function ButtonOutline({onClick, className: addedClass, loading, color, children: label}) {
     const lightColors = ['accent-yellow'];
+    const colors = { // color classes for tailwind
+        'primary-light': 'border-primary-light hover:bg-primary-light',
+        'accent-yellow': 'border-accent-yellow hover:bg-accent-yellow',
+        'primary-red': 'border-primary-red hover:bg-primary-red',
+    };
 
     return (
         <button 
