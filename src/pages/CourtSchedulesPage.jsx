@@ -8,21 +8,20 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function CourtSchedulesPage() {
     const {loggedInUser} = useContext(AuthContext);
-    const [courts, setCourts] = useState();
+    const [courtsSchedules, setCourtSchedules] = useState();
 
     const getCourtSchedules = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/courts`, {
+            const response = await fetch(`${BASE_URL}/schedules`, {
                 headers: {
                     'Content-Type' : 'application/json',
                     'Accept' : 'application/json',
-                    'Authorization' : `Bearer ${loggedInUser.accessToken}`,
                 }
             });
 
             const data = await response.json();
 
-            setCourts(data.data);
+            setCourtSchedules(data.data);
         } catch (e) {
             console.log(e);
         }
@@ -49,17 +48,19 @@ export function CourtSchedulesPage() {
                     </thead>
                     <tbody className="text-center">
                         {
-                            courts?.map((court, i) => {
+                            courtsSchedules?.map((courtSchedule, i) => {
                                 return (
                                     <>
                                         {
-                                            court?.schedules?.map((scheduleItem, j) => {
+                                            courtSchedule?.schedules?.map((scheduleItem, j) => {
+                                                let courtName = courtSchedule?.court?.name;
+
                                                 return (
                                                     <tr key={`schedule-item-${j}`}>
                                                         { (j === 0) ? 
                                                             <>
                                                                 <td className="border border-gray-400">{i+1}</td>
-                                                                <td className="border border-gray-400">{court.name}</td>
+                                                                <td className="border border-gray-400">{courtName}</td>
                                                             </>
                                                             : 
                                                                 <td colSpan={2}></td>
@@ -72,8 +73,8 @@ export function CourtSchedulesPage() {
                                                                     scheduleItem.status === 'available' ? <ButtonLinkSmall 
                                                                                                                 pathName={`/create-booking`}
                                                                                                                 state={{
-                                                                                                                    courtScheduleId : court.court_schedule.id,
-                                                                                                                    courtName : court.name,
+                                                                                                                    courtScheduleId : courtSchedule.id,
+                                                                                                                    courtName : courtName,
                                                                                                                     scheduleItem: scheduleItem,
                                                                                                                 }}
                                                                                                             >Booking Now</ButtonLinkSmall>

@@ -14,6 +14,9 @@ export function Header() {
                 <NavLink to="/" className="block">Home</NavLink>
             </NavItem>
             <NavItem>
+                <NavLink to="/court-schedules" className="block">Court Schedules</NavLink>
+            </NavItem>
+            <NavItem>
                 <NavLink to="/booking-history" className="block">Booking History</NavLink>
             </NavItem>
             {
