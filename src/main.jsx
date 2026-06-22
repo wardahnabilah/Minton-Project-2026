@@ -13,6 +13,7 @@ import { ProtectedRoute } from './components/others/ProtectedRoute.jsx'
 import { CourtSchedulesPage } from './pages/CourtSchedulesPage.jsx'
 import { CreateBookingPage } from './pages/Booking/CreateBookingPage.jsx'
 import { HistoryBookingPage } from './pages/Booking/HistoryBookingPage.jsx'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,5 +38,6 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router}/>
+    <ToastContainer />
   </StrictMode>,
 )
