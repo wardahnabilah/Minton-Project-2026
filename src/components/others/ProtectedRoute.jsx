@@ -1,21 +1,24 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Outlet, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
-export function ProtectedRoute({children}) {
+export function ProtectedRoute({role}) {
     const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
     const navigateTo = useNavigate();
 
     useEffect(() => {
-        if(loggedInUser?.role !== 'admin') {
-            navigateTo({
-                pathname: '/',
-                state: {
-                    message: "Sorry, you don't have permission to this page"
-                },
-            });
-        }
-    }, [loggedInUser]);
+        if(loggedInUser === undefined) {
+            toast.error('Please log in first');
 
-    return <Outlet />
+            navigateTo('/login', { replace: true });
+        }
+
+        if(role === 'admin' && (loggedInUser.role !== 'admin')) {
+            toast.error("You don't have permission to access this page");
+            navigateTo('/', { replace: true });
+        }
+    },[navigateTo, loggedInUser]);
+
+    return loggedInUser && <Outlet />
 }

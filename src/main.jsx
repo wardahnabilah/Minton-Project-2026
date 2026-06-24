@@ -23,10 +23,13 @@ const router = createBrowserRouter(
         <Route path="register" element={ <RegisterPage /> }/>
         <Route path="login" element={ <LoginPage /> }/>
         <Route path="court-schedules" element={ <CourtSchedulesPage /> }/>
-        <Route path="create-booking" element={ <CreateBookingPage /> }/>
-        <Route path="booking-history" element={ <HistoryBookingPage /> }/>
+        
+        <Route element={<ProtectedRoute />}>
+          <Route path="create-booking" element={ <CreateBookingPage /> }/>
+          <Route path="booking-history" element={ <HistoryBookingPage /> }/>
+        </Route>
 
-        <Route path="admin" element={<ProtectedRoute />}>
+        <Route path="admin" element={<ProtectedRoute role="admin" />}>
           <Route path="" element={<AdminPage />} />
           <Route path="courts" element={<SettingsCourtPage />}/>
         </Route>
