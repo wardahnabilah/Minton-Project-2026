@@ -13,12 +13,6 @@ export function Header() {
             <NavItem>
                 <NavLink to="/" className="block">Home</NavLink>
             </NavItem>
-            <NavItem>
-                <NavLink to="/court-schedules" className="block">Court Schedules</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink to="/booking-history" className="block">Booking History</NavLink>
-            </NavItem>
             {
                 (loggedInUser?.role === 'admin') &&
                     <NavItem>
@@ -26,12 +20,18 @@ export function Header() {
                     </NavItem>
             }
             <NavItem>
-                { !loggedInUser ? <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall> : 
-                    <>
-                        <ButtonOutline color="primary-red" size="md" onClick={postLogout}>Logout</ButtonOutline>
-                    </>
-                }
+                <NavLink to="/court-schedules" className="block mr-5">Court Schedules</NavLink>
             </NavItem>
+            { !loggedInUser ? <ButtonLinkSmall pathName="/login">Login</ButtonLinkSmall> : 
+                <>
+                    <NavItem>
+                        <NavLink to="/booking-history" className="block">Booking History</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <ButtonOutline color="primary-red" size="md" onClick={postLogout}>Logout</ButtonOutline>
+                    </NavItem>
+                </>
+            }
         </ul>
     )
     
