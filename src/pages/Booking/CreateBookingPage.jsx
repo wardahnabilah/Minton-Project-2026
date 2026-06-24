@@ -10,7 +10,7 @@ export function CreateBookingPage() {
     const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
     const location = useLocation();
-    const selectedScheduleItem = location.state.scheduleItem;
+    const selectedSchedule = location.state.selectedSchedule;
 
     const handleSubmit = async () => {
         setIsLoading(true);
@@ -24,9 +24,10 @@ export function CreateBookingPage() {
                     'Authorization' : `Bearer ${loggedInUser.accessToken}`,
                 },
                 body: JSON.stringify({
-                    'court_schedule_id': location.state.courtScheduleId,
-                    'start_time': selectedScheduleItem.start_time,
-                    'end_time': selectedScheduleItem.end_time,
+                    'court_schedule_id': selectedSchedule.id,
+                    'date': selectedSchedule.date,
+                    'start_time': selectedSchedule.slot.start_time,
+                    'end_time': selectedSchedule.slot.end_time,
                 }),
             });
 
@@ -68,22 +69,22 @@ export function CreateBookingPage() {
                             <tr>
                                 <td className="w-30">Court</td>
                                 <td>:</td>
-                                <td>{location.state.courtName}</td>
+                                <td>{selectedSchedule.courtName}</td>
                             </tr>
                             <tr>
-                                <td>Day</td>
+                                <td>Date</td>
                                 <td>:</td>
-                                <td>{selectedScheduleItem.day}</td>
+                                <td>{selectedSchedule.day}, {selectedSchedule.date}</td>
                             </tr>
                             <tr>
                                 <td>Start Time</td>
                                 <td>:</td>
-                                <td>{selectedScheduleItem.start_time}</td>
+                                <td>{selectedSchedule.slot.start_time}</td>
                             </tr>
                             <tr>
                                 <td>End Time</td>
                                 <td>:</td>
-                                <td>{selectedScheduleItem.end_time}</td>
+                                <td>{selectedSchedule.slot.end_time}</td>
                             </tr>
                         </tbody>
                     </table>

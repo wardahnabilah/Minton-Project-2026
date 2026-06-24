@@ -51,7 +51,7 @@ export function CourtSchedulesPage() {
                         <tr>
                             <th className="border border-gray-400">No</th>
                             <th className="border border-gray-400">Court</th>
-                            <th className="border border-gray-400">Day</th>
+                            <th className="border border-gray-400">Date</th>
                             <th className="border border-gray-400">Start Time</th>
                             <th className="border border-gray-400">End Time</th>
                             <th className="border border-gray-400">Actions</th>
@@ -60,12 +60,12 @@ export function CourtSchedulesPage() {
                     <tbody className="text-center">
                         {
                             courtsSchedules ?.map((courtSchedule, i) => {
+                                let courtName = courtSchedule?.court?.name;
+
                                 return (
                                     <>
                                         {
-                                            courtSchedule?.schedules?.map((scheduleItem, j) => {
-                                                let courtName = courtSchedule?.court?.name;
-
+                                            courtSchedule?.slots?.map((slot, j) => {
                                                 return (
                                                     <tr key={`schedule-item-${j}`}>
                                                         { (j === 0) ? 
@@ -76,17 +76,21 @@ export function CourtSchedulesPage() {
                                                             : 
                                                                 <td colSpan={2}></td>
                                                         }
-                                                            <td className="border border-gray-400">{scheduleItem.day}</td>
-                                                            <td className="border border-gray-400">{scheduleItem.start_time}</td>
-                                                            <td className="border border-gray-400">{scheduleItem.end_time}</td>
+                                                            <td className="border border-gray-400">{courtSchedule.date}</td>
+                                                            <td className="border border-gray-400">{slot.start_time}</td>
+                                                            <td className="border border-gray-400">{slot.end_time}</td>
                                                             <td className="border border-gray-400 py-5">
                                                                 {
-                                                                    scheduleItem.status === 'available' ? <ButtonLinkSmall 
+                                                                    slot.status === 'available' ? <ButtonLinkSmall 
                                                                                                                 pathName={`/create-booking`}
                                                                                                                 state={{
-                                                                                                                    courtScheduleId : courtSchedule.id,
-                                                                                                                    courtName : courtName,
-                                                                                                                    scheduleItem: scheduleItem,
+                                                                                                                    selectedSchedule: {
+                                                                                                                        courtName: courtName,
+                                                                                                                        id: courtSchedule.id,
+                                                                                                                        day: courtSchedule.day,
+                                                                                                                        date: courtSchedule.date,
+                                                                                                                        slot: slot,
+                                                                                                                    }
                                                                                                                 }}
                                                                                                             >Booking Now</ButtonLinkSmall>
                                                                                                             : 'Booked'
