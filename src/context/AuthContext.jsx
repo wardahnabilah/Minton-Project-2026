@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -36,6 +37,9 @@ export function AuthProvider({children}) {
             // if success, redirect login page
             navigateTo('/login');
             setIsLoading(false);
+            toast.success(data.message, {
+                position: 'top-center'
+            });
         } catch (e) {
             let message = e.message;
             let errors = e.errors;
@@ -77,6 +81,9 @@ export function AuthProvider({children}) {
             setIsLoading(false);
             setLoggedInUser(data.data);
             navigateTo('/court-schedules');
+            toast.success(data.message, {
+                position: 'top-center'
+            });
 
         } catch (e) {
             let message = e.message;
@@ -119,6 +126,10 @@ export function AuthProvider({children}) {
             setLoggedInUser(null);
             setIsLoading(false);
             navigateTo('/');
+
+            toast.success(data.message, {
+                position: 'top-center'
+            });
 
         } catch (e) {
             let message = e.message;
